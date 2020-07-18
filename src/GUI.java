@@ -21,20 +21,16 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
-import java.awt.Button;
 import javax.swing.JFileChooser;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import javax.swing.DropMode;
-import javax.swing.JSlider;
+
 
 public class GUI {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldAddressXSL;
+	private JTextField textFieldAddressXML;
+	private JTextField textFieldFilenameXMLOutput;
+	private JTextField textFieldParentAdressXMLOutput;
 	/**
 	 * @wbp.nonvisual location=210,377
 	 */
@@ -71,16 +67,17 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnConvert = new JButton("Convert");
-		btnConvert.addActionListener(new ActionListener() {
+		JButton btnConvert = new JButton("Convert"); // Button Convert
+		btnConvert.addActionListener(new ActionListener() { // Button Convert Functionality:
+			
 			public void actionPerformed(ActionEvent arg0) {
 					boolean success = true;
 					String addInputXML, addXSL, addOutputXMLFilename;
 					
 					try {
-						addInputXML = textField_1.getText();
-						addXSL = textField.getText();
-						addOutputXMLFilename = textField_2.getText();
+						addInputXML = textFieldAddressXML.getText(); 
+						addXSL = textFieldAddressXSL.getText();
+						addOutputXMLFilename = textFieldFilenameXMLOutput.getText();
 						Path outputPath = Paths.get(addInputXML).getParent();
 						
 						
@@ -110,7 +107,6 @@ public class GUI {
 					}
 						if (success == true) {
 						JOptionPane.showMessageDialog(null, "Success!");
-						
 						}
 				
 			}
@@ -119,50 +115,49 @@ public class GUI {
 		btnConvert.setBounds(99, 235, 117, 25);
 		frame.getContentPane().add(btnConvert);
 		
-		textField = new JTextField();
-		textField.setBounds(144, 133, 251, 19);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		textFieldAddressXSL = new JTextField();
+		textFieldAddressXSL.setBounds(144, 133, 251, 19);
+		frame.getContentPane().add(textFieldAddressXSL);
+		textFieldAddressXSL.setColumns(10);
 		
-		textField_1 = new JTextField();
+		textFieldAddressXML = new JTextField();
 	
-		textField_1.setColumns(10);
-		textField_1.setBounds(144, 75, 251, 19);
-		frame.getContentPane().add(textField_1);
+		textFieldAddressXML.setColumns(10);
+		textFieldAddressXML.setBounds(144, 75, 251, 19);
+		frame.getContentPane().add(textFieldAddressXML);
 		
-		JLabel lblAddTheAdress = new JLabel("Add the adress of the XML file:");
-		lblAddTheAdress.setBounds(75, 48, 231, 15);
-		frame.getContentPane().add(lblAddTheAdress);
+		JLabel lblAddTheXMLAddress = new JLabel("Add the address of the XML file:");
+		lblAddTheXMLAddress.setBounds(75, 48, 231, 15);
+		frame.getContentPane().add(lblAddTheXMLAddress);
 		
-		JLabel lblAddTheAdress_2 = new JLabel("Add the adress of the XSL file:");
-		lblAddTheAdress_2.setBounds(75, 106, 231, 15);
-		frame.getContentPane().add(lblAddTheAdress_2);
+		JLabel lblAddTheXSLAddress = new JLabel("Add the address of the XSL file:");
+		lblAddTheXSLAddress.setBounds(75, 106, 231, 15);
+		frame.getContentPane().add(lblAddTheXSLAddress);
 		
-		JLabel lblAddTheAdress_2_1 = new JLabel("Name  of output XML file:");
-		lblAddTheAdress_2_1.setBounds(75, 160, 186, 15);
-		frame.getContentPane().add(lblAddTheAdress_2_1);
+		JLabel lblAddTheXMLOutputFilename = new JLabel("Name of the output XML file:");
+		lblAddTheXMLOutputFilename.setBounds(75, 160, 186, 15);
+		frame.getContentPane().add(lblAddTheXMLOutputFilename);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(263, 158, 132, 19);
-		frame.getContentPane().add(textField_2);
+		textFieldFilenameXMLOutput = new JTextField();
+		textFieldFilenameXMLOutput.setColumns(10);
+		textFieldFilenameXMLOutput.setBounds(263, 158, 132, 19);
+		frame.getContentPane().add(textFieldFilenameXMLOutput);
 		
-		JButton btnNewButton = new JButton("Clear text fields");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnClear = new JButton("Clear text fields");
+		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				textField.setText("");
-				textField_1.setText("");
-				textField_2.setText("");
-				textField_3.setText("");
+				textFieldAddressXSL.setText("");
+				textFieldAddressXML.setText("");
+				textFieldFilenameXMLOutput.setText("");
+				textFieldParentAdressXMLOutput.setText("");
 			}
 		});
 		
-		btnNewButton.setBounds(263, 235, 151, 25);
-		frame.getContentPane().add(btnNewButton);
+		btnClear.setBounds(263, 235, 151, 25);
+		frame.getContentPane().add(btnClear);
 		
-		JButton btnNewButton_1 = new JButton("...");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnXMLFileChooser = new JButton("...");
+		btnXMLFileChooser.addActionListener(new ActionListener() { // Button btnXMLFileChooser Functionality:
 			public void actionPerformed(ActionEvent arg0) {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -170,15 +165,15 @@ public class GUI {
 	            fileChooser.setCurrentDirectory(workingDirectory);
 
 				
-				int returnVal = fileChooser.showOpenDialog(btnNewButton_1);
+				int returnVal = fileChooser.showOpenDialog(btnXMLFileChooser);
 		        if (returnVal == JFileChooser.APPROVE_OPTION) {
 		            File file = fileChooser.getSelectedFile();
 		            		            try {
 						Path fullPath = Paths.get(file.getAbsolutePath());
-						textField_1.setText(fullPath.toString());
-						textField_3.setText(fullPath.getParent().toString() + File.separator);
-						if(textField_2.getText().isEmpty()) {
-							textField_2.setText(file.getName().replaceFirst("[.][^.]+$", "") + "new.p4d");
+						textFieldAddressXML.setText(fullPath.toString());
+						textFieldParentAdressXMLOutput.setText(fullPath.getParent().toString() + File.separator);
+						if(textFieldFilenameXMLOutput.getText().isEmpty()) {
+							textFieldFilenameXMLOutput.setText(file.getName().replaceFirst("[.][^.]+$", "") + "new.p4d");
 						}
 		            } catch (Exception ex) {
 		            	String error = ex.getLocalizedMessage();
@@ -187,11 +182,11 @@ public class GUI {
 		        }       
 			}
 		});
-		btnNewButton_1.setBounds(407, 77, 29, 15);
-		frame.getContentPane().add(btnNewButton_1);
+		btnXMLFileChooser.setBounds(407, 77, 29, 15);
+		frame.getContentPane().add(btnXMLFileChooser);
 		
-		JButton btnNewButton_1_1 = new JButton("...");
-		btnNewButton_1_1.addActionListener(new ActionListener() {
+		JButton btnXLSFileChooser = new JButton("...");
+		btnXLSFileChooser.addActionListener(new ActionListener() { // Button btnXLSFileChooser Functionality: 
 			public void actionPerformed(ActionEvent arg0) {
 				final JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -199,12 +194,12 @@ public class GUI {
 	            fileChooser.setCurrentDirectory(workingDirectory);
 
 				
-				int returnVal = fileChooser.showOpenDialog(btnNewButton_1);
+				int returnVal = fileChooser.showOpenDialog(btnXLSFileChooser);
 		        if (returnVal == JFileChooser.APPROVE_OPTION) {
 		            File file = fileChooser.getSelectedFile();
 		            try {
 		            	Path fullPath = Paths.get(file.getAbsolutePath());
-						textField.setText(fullPath.toString());
+						textFieldAddressXSL.setText(fullPath.toString());
 		            } catch (Exception ex) {
 		            	String error = ex.getLocalizedMessage();
 						JOptionPane.showMessageDialog(null, "Error: " + error);
@@ -212,13 +207,13 @@ public class GUI {
 		        }       
 			}
 		});
-		btnNewButton_1_1.setBounds(407, 135, 29, 15);
-		frame.getContentPane().add(btnNewButton_1_1);
+		btnXLSFileChooser.setBounds(407, 135, 29, 15);
+		frame.getContentPane().add(btnXLSFileChooser);
 		
-		textField_3 = new JTextField();
-		textField_3.setEnabled(false);
-		textField_3.setColumns(10);
-		textField_3.setBounds(85, 187, 310, 19);
-		frame.getContentPane().add(textField_3);
+		textFieldParentAdressXMLOutput = new JTextField();
+		textFieldParentAdressXMLOutput.setEnabled(false);
+		textFieldParentAdressXMLOutput.setColumns(10);
+		textFieldParentAdressXMLOutput.setBounds(85, 187, 310, 19);
+		frame.getContentPane().add(textFieldParentAdressXMLOutput);
 	}
 }
